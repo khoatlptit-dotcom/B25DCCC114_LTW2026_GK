@@ -18,13 +18,19 @@ const AddProduct = ({ onAdd }) => {
       return;
     }
 
-    onAdd({
-      name: name.trim(),
-      category,
-      price: Number(price),
-      stock: Number(stock),
+    const priceNum = Number(price);
+    const stockNum = Number(stock);
+    if (!(priceNum > 0) || !Number.isInteger(stockNum) || stockNum < 0) {
+      setError('Giá phải lớn hơn 0, số lượng là số nguyên không âm');
+      return;
+    }
+
+    const cleanName = name.trim();
+    onAdd({ name: cleanName, category, price: priceNum, stock: stockNum });
+    navigate('/products', {
+      replace: true,
+      state: { message: `Đã thêm sản phẩm ${cleanName}` },
     });
-    navigate('/products', { replace: true });
   };
 
   return (
