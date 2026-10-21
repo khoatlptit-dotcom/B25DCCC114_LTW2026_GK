@@ -49,7 +49,8 @@ const App = () => {
     if (!loading && !error) {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(products));
     }
-  }, [products, loading, error]);
+    
+  }, [products, loading]);
 
   const addProduct = (data) => {
     setProducts((prev) => {
